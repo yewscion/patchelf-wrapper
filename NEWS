@@ -1,0 +1,24 @@
+#+title: patchelf-wrapper NEWS – history of user-visible changes
+#+startup: content
+* Changes in 0.0.1
+** New Features
+- Note new user-visible features here.
+  
+** Bugfixes
+- No prior release, so "bugs" don't exist yet per se.
+
+* Postamble
+Copyright © (2022) Christopher Rodriguez <yewscion@gmail.com>
+
+  Copying and distribution of this file, with or without modification,
+  are permitted in any medium without royalty provided the copyright
+  notice and this notice are preserved.
+
+Please send bug reports to [[mailto:yewscion@gmail.com][yewscion@gmail.com]].
+
+
+
+# Local Variables:
+# mode: org
+# coding: utf-8-unix
+# End:

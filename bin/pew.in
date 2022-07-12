@@ -1,0 +1,143 @@
+#!/usr/bin/env -S guile \\
+-e main -s
+!#
+(use-modules (cdr255 userlib)       ; Reimplement anything used from here.
+             (ice-9 getopt-long)    ; For CLI Options and Flags.
+             (ice-9 ftw)            ; For Filesystem Access.
+             (ice-9 textual-ports)) ; For Writing to Files.
+
+;; This is where all of the flags for the program are defined.
+(define option-spec
+  '((version (single-char #\v) (value #f))
+    (help (single-char #\h) (value #f))))
+
+(define (main args)
+  "Runs this script.
+
+This is an ACTION.
+
+Arguments
+=========
+
+ARGS <<list> of <strings>>: A list of all of the arguments given to this script,
+with the script's name being argument 0.
+
+Returns
+=======
+
+A <number> exit code representing the exit status of the program.
+
+Impurities
+==========
+
+Accepts Input from User.
+"  
+  (let* ((options (getopt-long args option-spec))
+         (version (option-ref options 'version #f))
+         (help (option-ref options 'help #f)))
+    (when (or help version)
+      (display-help))
+    (when (not (file-exists? ".input"))
+      (create-input-file))
+    (quit)))
+
+(define (create-input-file)
+  "Create a Missing Input File in the Current Directory.
+
+This is an ACTION.
+
+Arguments
+=========
+
+None.
+
+Returns
+=======
+
+<undefined>
+
+Impurities
+==========
+
+Creates a file and writes information to it (if file doesn't exist yet).
+"
+  (call-with-output-file ".input"
+    (lambda (port)
+      (put-string port
+                  fallback-input-file)))
+  (display "Created Fallback Input File.\n"))
+
+(define (display-help)
+  "Display Help Information.
+
+This is an ACTION.
+
+Arguments
+=========
+
+None.
+
+Returns
+=======
+
+<undefined>
+
+Impurities
+==========
+
+Displays to Screen and Ends Program.
+"
+  (display (string-append
+            "Usage: project-name [-hv]\n\n"
+            
+            "Explanation of Options:\n\n"
+            
+            "  -h   / --help      Display this help message.\n"
+            "  -v   / --version   Display the version information.\n\n"
+            
+            "This program is a part of @PACKAGE_STRING@\n"
+            "@LICENSE@"
+            "Please report bugs to @PACKAGE_BUGREPORT@\n"
+            "and see @PACKAGE_URL@\n"
+            "for the latest version.\n\n"
+
+            "This program is entirely written in GNU Guile Scheme\n"
+            "and You are welcome to change it how You see fit.\n\n"
+
+            "Guile Online Help: <https://www.gnu.org/software/guile/>\n"
+            "Local Online Help: 'info guile'\n"))
+  (quit))
+(define (display-version)
+  "Display Version Information.
+
+This is an ACTION.
+
+Arguments
+=========
+
+None.
+
+Returns
+=======
+
+<undefined>
+
+Impurities
+==========
+
+Prints to Screen and Ends Program.
+"
+  (display (string-append
+            "@PACKAGE_STRING@"
+            "\n"))
+  (quit))
+
+
+;; This is the content for the default input file, which will be created with
+;; these contents if it doesn't already exist.
+(define fallback-input-file
+  "No Input Defined For Project Yet.")
+;; Local Variables:
+;; mode: scheme
+;; coding: utf-8
+;; End:

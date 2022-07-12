@@ -1,0 +1,11 @@
+#!/usr/bin/env -S guile \\
+-e main -s
+!#
+
+(define (main args)
+  (display "This is a placeholder for the real info script.\n"))
+
+;; Local Variables:
+;; mode: scheme
+;; coding: utf-8
+;; End:

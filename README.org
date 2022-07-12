@@ -1,0 +1,77 @@
+#+title: The =patchelf-wrapper= README
+# variables: patchelf-wrapper, A tool for using patchelf with GNU/Guix
+#+subtitle: A tool for using patchelf with GNU/Guix
+#+date: <2022-06-13 Mon 17:54>
+#+description: A tool for using patchelf with GNU/Guix
+#+keywords: keywords to use
+#+subauthor:
+#+html_doctype: html5
+#+html_container: div
+#+html_link_home:
+#+html_link_up:
+#+html_mathjax:
+#+html_equation_reference_format: \eqref{%s}
+#+html_head:
+#+html_head_extra:
+#+infojs_opt:
+#+creator: Emacs and Org Mode on Guix
+#+latex_header:
+#+texinfo_filename:
+#+texinfo_class: info
+#+texinfo_header:
+#+texinfo_post_header:
+#+texinfo_dir_category:
+#+texinfo_dir_title:
+#+texinfo_dir_desc:
+#+texinfo_printed_title:
+#+man_class:
+#+man_class_options:
+#+man_header:
+#+options: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
+#+options: author:t broken-links:nil c:nil creator:nil
+#+options: d:(not "LOGBOOK") date:t e:t email:nil f:t inline:t num:t
+#+options: p:nil pri:nil prop:nil stat:t tags:t tasks:t tex:t
+#+options: timestamp:t title:t toc:nil todo:nil |:t
+#+options: html-preamble:nil html-scripts:nil html-style:nil
+#+options: html-link-use-abs-url:nil html-postamble:nil
+#+options: html5-fancy:nil tex:t
+#+author: Christopher Rodriguez
+#+email: yewscion@gmail.com
+#+language: en
+#+select_tags: export yup
+#+exclude_tags: noexport nope
+#+property: header-args :mkdirp yes :results output verbatim
+#+property: header-args:text :eval never
+#+property: header-args:markdown :eval never
+#+property: header-args:fundamental :eval never
+#+property: header-args:lisp :noweb yes :mkdirp yes
+#+property: header-args:scheme :noweb yes :mkdirp yes :session GUILE
+#+property: header-args:dot :cmd sfdp :mkdirp yes
+#+property: header-args:bash :dir ~ :shebang #!/usr/bin/env -S bash -i
+#+macro: lastupdate (eval (format-time-string "%F (W%V) %T %Z" nil t))
+#+macro: summary A tool for using patchelf with GNU/Guix.
+#+macro: guixinfo (eval (cdr:readme-guix-instructions "patchelf-wrapper"))
+#+macro: srcinfo (eval (cdr:readme-src-instructions "patchelf-wrapper"))
+#+macro: installinfo (eval (cdr:readme-install-instructions "patchelf-wrapper"))
+#+macro: useinfo (eval (cdr:readme-std-usage-instructions "patchelf-wrapper"))
+#+macro: contribinfo (eval (cdr:readme-contrib-instructions "patchelf-wrapper"))
+#+macro: licenseinfo (eval (cdr:readme-license-instructions "patchelf-wrapper" "agpl"))
+** {{{TITLE}}}
+
+*{{{summary}}}*
+
+/Last Updated: {{{lastupdate}}}/
+
+# This is where the long description goes.
+
+{{{installinfo}}}
+{{{useinfo}}}
+# This is where specific usage instructions go.
+
+{{{contribinfo}}}
+{{{licenseinfo}}}
+
+# Local Variables:
+# mode: org
+# coding: utf-8-unix
+# End:

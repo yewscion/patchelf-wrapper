@@ -1,0 +1,5 @@
+(define-module (cdr255 patchelf-wrapper)
+  #:version (0 0 1)
+  #:use-module (ice-9 textual-ports)
+  #:use-module (ice-9 string-fun)
+  #:export ())
