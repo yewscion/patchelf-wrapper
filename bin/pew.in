@@ -8,10 +8,11 @@
 
 ;; This is where all of the flags for the program are defined.
 (define option-spec
-  '((version (single-char #\v) (value #f))
+  '((version (single-char #\V) (value #f))
     (help (single-char #\h) (value #f))
     (interpreter (single-char #\i) (value #t))
-    (rpath-specs (single-char #\r) (value #t))))
+    (rpath-specs (single-char #\r) (value #t))
+    (verbose (single-char #\v) (value #f))))
 
 (define (main args)
   "Runs this script.
@@ -38,6 +39,7 @@ Accepts Input from User."
          (help (option-ref options 'help #f))
          (interpreter (option-ref options 'interpreter "/lib/ld-linux-x86-64.so.2"))
          (rpath-specs (option-ref options 'rpath-specs "gcc:lib"))
+         (verbosity (option-ref options 'verbose #f))
          (arguments (option-ref options '() '())))
     (when help
       (display-help)
@@ -65,7 +67,8 @@ Accepts Input from User."
           (else
            (run-patchelf (car arguments)
                          #:interpreter interpreter
-                         #:rpath-specs (process-rpath-specs rpath-specs))))))
+                         #:rpath-specs (process-rpath-specs rpath-specs)
+                         #:verbosity verbosity)))))
 
 (define (display-help)
   "Display Help Information.
