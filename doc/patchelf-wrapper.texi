@@ -127,7 +127,7 @@ dereference @var{$HOME}, use "HOME" as @var{variable}.}.
 @end deffn
 
 @c *********************************************************************
-@node Concept Index, Programming Index, Game Tools, Top
+@node Concept Index, Programming Index, Library, Top
 @chapter Concept Index
 @printindex cp
 
@@ -139,7 +139,7 @@ dereference @var{$HOME}, use "HOME" as @var{variable}.}.
 @printindex fn
 
 @c *********************************************************************
-@node Procedure Types, GNU FDL, Environment Variables, Top
+@node Procedure Types, GNU FDL, Programming Index, Top
 @cindex Procedure Types
 @include procedure-types.texi
 

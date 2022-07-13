@@ -1,15 +1,17 @@
 #!/usr/bin/env -S guile \\
 -e main -s
 !#
-(use-modules (cdr255 userlib)       ; Reimplement anything used from here.
-             (ice-9 getopt-long)    ; For CLI Options and Flags.
-             (ice-9 ftw)            ; For Filesystem Access.
-             (ice-9 textual-ports)) ; For Writing to Files.
+(use-modules (cdr255 patchelf-wrapper) ; Reimplement anything used from here.
+             (ice-9 getopt-long)       ; For CLI Options and Flags.
+             (ice-9 ftw)               ; For Filesystem Access.
+             (ice-9 textual-ports))    ; For Writing to Files.
 
 ;; This is where all of the flags for the program are defined.
 (define option-spec
   '((version (single-char #\v) (value #f))
-    (help (single-char #\h) (value #f))))
+    (help (single-char #\h) (value #f))
+    (interpreter (single-char #\i) (value #t))
+    (rpath-specs (single-char #\r) (value #t))))
 
 (define (main args)
   "Runs this script.
@@ -30,42 +32,40 @@ A <number> exit code representing the exit status of the program.
 Impurities
 ==========
 
-Accepts Input from User.
-"  
+Accepts Input from User."  
   (let* ((options (getopt-long args option-spec))
          (version (option-ref options 'version #f))
-         (help (option-ref options 'help #f)))
-    (when (or help version)
-      (display-help))
-    (when (not (file-exists? ".input"))
-      (create-input-file))
-    (quit)))
-
-(define (create-input-file)
-  "Create a Missing Input File in the Current Directory.
-
-This is an ACTION.
-
-Arguments
-=========
-
-None.
-
-Returns
-=======
-
-<undefined>
-
-Impurities
-==========
-
-Creates a file and writes information to it (if file doesn't exist yet).
-"
-  (call-with-output-file ".input"
-    (lambda (port)
-      (put-string port
-                  fallback-input-file)))
-  (display "Created Fallback Input File.\n"))
+         (help (option-ref options 'help #f))
+         (interpreter (option-ref options 'interpreter "/lib/ld-linux-x86-64.so.2"))
+         (rpath-specs (option-ref options 'rpath-specs "gcc:lib"))
+         (arguments (option-ref options '() '())))
+    (when help
+      (display-help)
+      (quit))
+    (when version
+      (display-version)
+      (quit))
+    (cond ((< (length arguments) 1)
+           (display "Please specify the target binary file.\n\n")
+                    (display-help)
+                    (quit))
+          ((not (= (length arguments) 1))
+           (display (string-append
+                     "Unrecognized input: "
+                     arguments
+                     "\n\n"))
+           (display-help)
+           (quit))
+          ((not (file-exists? (car arguments)))
+           (display (string-append
+                     "File '"
+                     (car arguments)
+                     "' doesn't exist. Are You sure that's what You want to patch?\n\n"))
+           (quit))
+          (else
+           (run-patchelf (car arguments)
+                         #:interpreter interpreter
+                         #:rpath-specs (process-rpath-specs rpath-specs))))))
 
 (define (display-help)
   "Display Help Information.
@@ -88,7 +88,7 @@ Impurities
 Displays to Screen and Ends Program.
 "
   (display (string-append
-            "Usage: project-name [-hv]\n\n"
+            "Usage: pew [-hv]\n\n"
             
             "Explanation of Options:\n\n"
             
@@ -107,6 +107,7 @@ Displays to Screen and Ends Program.
             "Guile Online Help: <https://www.gnu.org/software/guile/>\n"
             "Local Online Help: 'info guile'\n"))
   (quit))
+
 (define (display-version)
   "Display Version Information.
 
@@ -132,11 +133,6 @@ Prints to Screen and Ends Program.
             "\n"))
   (quit))
 
-
-;; This is the content for the default input file, which will be created with
-;; these contents if it doesn't already exist.
-(define fallback-input-file
-  "No Input Defined For Project Yet.")
 ;; Local Variables:
 ;; mode: scheme
 ;; coding: utf-8

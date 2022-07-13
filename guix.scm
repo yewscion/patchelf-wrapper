@@ -4,11 +4,14 @@
  ((guix licenses) #:prefix license:)
  (guix download)
  (guix build-system gnu)
- (gnu packages)
+ (guix packages)
+ (gnu packages base)
  (gnu packages autotools)
  (gnu packages pkg-config)
  (gnu packages texinfo)
  (gnu packages guile)
+ (gnu packages package-management)
+ (gnu packages elf)
  (guix gexp))
 
 (package
@@ -38,6 +41,7 @@
            (string-append "\"" (search-input-file inputs "/bin/java"))))))
       ;; Java and Guile programs don't need to be stripped.
       (delete 'strip))))
+  (propagated-inputs (list grep guix patchelf))
   (native-inputs (list autoconf automake pkg-config texinfo))
   (inputs (list guile-3.0-latest))
   (synopsis "A tool to use patchelf with GNU/Guix")

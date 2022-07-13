@@ -39,17 +39,16 @@ if test "x$GUILD" = "x"; then
 fi
 GUILE_SITE_DIR
 
-dnl Set Up Java
-AC_PROG_CC
-AX_CHECK_CLASSPATH
-AX_PROG_JAVA_CC
-AX_PROG_JAVAC
-AX_PROG_JAVA
-AX_PROG_JAR
-AX_PROG_JAVADOC
-AC_SUBST(MYJAVAPKG, [patchelf-wrapper])
-
-AC_SUBST(JAVA_CC_OPTS, ["-encoding UTF-8"])
+dnl dnl Set Up Java
+dnl AC_PROG_CC
+dnl AX_CHECK_CLASSPATH
+dnl AX_PROG_JAVA_CC
+dnl AX_PROG_JAVAC
+dnl AX_PROG_JAVA
+dnl AX_PROG_JAR
+dnl AX_PROG_JAVADOC
+dnl AC_SUBST(MYJAVAPKG, [patchelf-wrapper])
+dnl AC_SUBST(JAVA_CC_OPTS, ["-encoding UTF-8"])
 
 dnl Checks for classes
 dnl AX_CHECK_RQRD_CLASS(org.whatever)
