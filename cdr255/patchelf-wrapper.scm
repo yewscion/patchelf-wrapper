@@ -8,7 +8,7 @@
   #:export (run-patchelf
             process-rpath-specs))
 (define %grep-non-out
-  "'debug\nstatic\nsource\ndoc\nbin\n'")
+  "'debug\ndebug\nstatic\nsource\ndoc\nbin\n'")
 (define* (run-patchelf target 
                        #:key
                        (interpreter "/lib/ld-linux-x86-64.so.2")
