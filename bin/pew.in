@@ -95,8 +95,13 @@ Displays to Screen and Ends Program.
             
             "Explanation of Options:\n\n"
             
-            "  -h   / --help      Display this help message.\n"
-            "  -v   / --version   Display the version information.\n\n"
+            "  -h, --help         Display this help message.\n"
+            "  -i, --interpreter  Specify a different interpreter. Default\n"
+            "                       is glibc's /lib/ld-linux-{arch}.so.2\n"
+            "  -r, --rpath-specs  The libraries to add to the binary's\n"
+            "                       runpath, \"pkg:out pkg:out\".\n"
+            "  -V, --version      Display the version information.\n"
+            "  -v, --verbose      Display verbose output.\n\n"
             
             "This program is a part of @PACKAGE_STRING@\n"
             "@LICENSE@"
